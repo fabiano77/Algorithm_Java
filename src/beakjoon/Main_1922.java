@@ -1,4 +1,4 @@
-package beakjoon.graph;
+package beakjoon;
 
 import java.io.File;
 import java.util.Arrays;
