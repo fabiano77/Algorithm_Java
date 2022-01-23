@@ -1,4 +1,4 @@
-package beakjoon;
+package baekjoon;
 
 import java.io.File;
 import java.util.Arrays;
