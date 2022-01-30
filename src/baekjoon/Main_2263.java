@@ -10,6 +10,7 @@ public class Main_2263 {
 	static int[] inorder;
 	static int[] postorder;
 	static int bias;
+	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String[] args) throws IOException{
 		System.setIn(Main_2263.class.getResourceAsStream("input.txt"));
@@ -21,6 +22,7 @@ public class Main_2263 {
 		postorder = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 		
 		preorder(0, N, 0);
+		System.out.println(sb.toString());
 	}
 	
 	static void preorder(int start, int end, int bias) {
@@ -34,7 +36,8 @@ public class Main_2263 {
 		int rootNum = postorder[rootIdxInPost];
 		
 		// root 출력 (preorder)
-		System.out.print(rootNum+" ");
+		sb.append(rootNum+" ");
+		// System.out.print(rootNum+" ");
 		
 		// inorder에서 root의 인덱스를 찾기
 		int rootIdxInInorder = -1;
