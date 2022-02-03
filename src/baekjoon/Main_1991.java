@@ -2,19 +2,19 @@ package baekjoon;
 
 import java.util.Scanner;
 
-class Node{
-	char value;
-	Node left;
-	Node right;
-	
-	public Node(){
-		this.value = ' ';
-		this.left = null;
-		this.right = null;
-	}
-}
 
 public class Main_1991 {
+	static class Node{
+		char value;
+		Node left;
+		Node right;
+		
+		public Node(){
+			this.value = ' ';
+			this.left = null;
+			this.right = null;
+		}
+	}
 	static int N;
 	
 	public static void main(String[] args) {
