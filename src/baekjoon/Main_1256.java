@@ -28,6 +28,8 @@ public class Main_1256 {
 		dp = new BigInteger[N+M+1][N+M+1];
 		
 		BigInteger combiValue = dpCombi(N+M, M);
+		
+		// 사전에 수록되어있는 문자열의 개수가 K보다 작으면 -1 출력
 		if(combiValue.compareTo(new BigInteger(""+K)) < 0) {
 			System.out.println(-1);
 		}
@@ -38,7 +40,7 @@ public class Main_1256 {
 
 	}
 	
-	// n개중 k를 순서없이 뽑는 경우의수
+	// n개중 k를 순서없이 뽑는 조합을 DP로 해결
 	private static BigInteger dpCombi(int n, int k) {
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < n;j++) {
@@ -53,8 +55,8 @@ public class Main_1256 {
 		}
 		
 		for(int i = 2; i <= n; i++) {
-			for(int j = 1; j < i; j++) {
-				dp[i][j] = new BigInteger(dp[i-1][j-1].add(dp[i-1][j]).toString()); 
+			for(int j = 1; j < i && j <= k; j++) {
+				dp[i][j] = dp[i-1][j-1].add(dp[i-1][j]); 
 			}
 		}
 		
