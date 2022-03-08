@@ -12,29 +12,25 @@ public class Main_13460 {
 		System.setIn(new FileInputStream("src/baekjoon/input.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
+		
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		
 		StringBuilder sb = new StringBuilder();
+		for(int r = 0; r < N; r++) sb.append(br.readLine());
 		
-		for(int r = 0; r < N; r++) {
-			sb.append(br.readLine());
-		}
-		String map = sb.toString();
-		// . : 빈칸
-		// # : 벽
-		// O : 구명
-		// R : 빨간 구슬 (1개) -> 성공
-		// B : 파란 구슬 (1개) -> 실패
 		
-		// BFS
-		
+		bfs(sb.toString());
+	}
+	
+	// BFS
+	public static void bfs(String map) {
 		Queue<String> q = new LinkedList<>();
 		Set<String> visited = new HashSet<>();
 		q.offer(map);
 		visited.add(map);
-		int moveCnt = 0;
 		
+		int moveCnt = 0;
 		while(!q.isEmpty() && moveCnt < 10) {
 			int qSize = q.size();
 			moveCnt++;
@@ -76,16 +72,8 @@ public class Main_13460 {
 		
 		// 먼저 굴릴 구슬을 정함 -> 기울일 방향의 벽과 가까운 구슬부터
 		boolean redFirst = false;
-		if(d == 0 && redR < blueR) {	//북
-			redFirst = true;
-		}
-		else if(d == 1 && redC > blueC) {	//동
-			redFirst = true;
-		}
-		else if(d == 2 && redR > blueR) {	//남
-			redFirst = true;
-		}
-		else if(d == 3 && redC < blueC) {	//서
+		if(	(d == 0 && redR < blueR) ||	(d == 1 && redC > blueC) ||
+			(d == 2 && redR > blueR) ||	(d == 3 && redC < blueC)) {	
 			redFirst = true;
 		}
 
