@@ -9,8 +9,8 @@ public class Main_3687 {
 		System.setIn(new FileInputStream("src/baekjoon/input.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		//			 0  1  2  3  4  5  6  7  8  9
-		int[] arr = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6};
+		//			 0  1  2  3  4  5  6  7  8  9		<- 이 수를 만들기위해
+		int[] arr = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6};		// 소모되는 성냥의 개수
 		
 		// 2랑 7만쓰면 큰 수 만들수 있음
 		
@@ -24,12 +24,13 @@ public class Main_3687 {
 				// i가 0이아니고 dp[i]가 0이라면 수가 만들어지지 않은 경우
 				if(i != 0 && dp[i] == 0) continue;
 				// 사용할 수 있는 성냥개수를 초과할 경우.
-				if(i+arr[num] > 100) continue;
+				if(i + arr[num] > 100) continue;
+				
+				// i + arr[num] 개의 성냥개비로 만들 수 있는 십진수
 				long currentNumber = dp[i] * 10 + num;
-				if(dp[i+arr[num]] != 0) {
-					dp[i+arr[num]] = Math.min(dp[i+arr[num]], currentNumber); 
-				}
-				else {
+				
+				// i + arr[num] 개로 만들수 있는 작은 수 갱신
+				if(dp[i+arr[num]] == 0 || currentNumber < dp[i+arr[num]]) {
 					dp[i+arr[num]] = currentNumber;
 				}
 			}
