@@ -25,18 +25,20 @@ public class Main_16986 {
 			}
 		}
 		
-		int[][] arr = new int[3][20];
+		int[][] info = new int[3][20];
 		StringTokenizer st1 = new StringTokenizer(br.readLine());
 		StringTokenizer st2 = new StringTokenizer(br.readLine());
 		for(int i = 0; i < 20; i++) {			
-			arr[1][i] = Integer.parseInt(st1.nextToken()) - 1;	// 경희
-			arr[2][i] = Integer.parseInt(st2.nextToken()) - 1;	// 민호
+			info[1][i] = Integer.parseInt(st1.nextToken()) - 1;	// 경희
+			info[2][i] = Integer.parseInt(st2.nextToken()) - 1;	// 민호
 		}
 		
-		// 지우(나) vs 경희 -> 승자 vs 민호 순서.
-		
 
-		boolean possible = play(0, 1, new int[3], new boolean[N], new int[3], arr);
+		int[] scores = new int[3];
+		boolean[] isSelected = new boolean[N];
+		int[] indexes = new int[3];
+		
+		boolean possible = play(0, 1, scores, isSelected, indexes, info);
 		
 		System.out.println(possible ? 1 : 0);
 		
@@ -44,16 +46,14 @@ public class Main_16986 {
 	
 
 	
-	public static boolean play(int playerA, int playerB, int[] scores, boolean[] isSelected, int[] indexes, int[][] arr) {
-		
+	public static boolean play(int playerA, int playerB, int[] scores, boolean[] isSelected, int[] indexes, int[][] info) {
 		// playerA가 playerB보다 항상 더 빠른 번호
-		//System.out.println("점수 "+Arrays.toString(scores));
-		
 		
 		for(int player = 0; player < 3; player++) {
 			if(scores[player] == K) {
-				// 다르게 내서 우승 할 수 있는 경우
+				// 지우가 우승한 경우 -> true 반환하여 탐색 중단
 				if(player == 0) return true;
+				// 우승 못하면 탐색 반복
 				return false;
 			}
 		}
@@ -61,24 +61,26 @@ public class Main_16986 {
 		// 지우가 참가하는 경우
 		if(playerA == 0) {
 			for(int i = 0; i < N; i++) {
+				// 다른 경우의수로 이겨야하므로
 				if(isSelected[i]) continue;
-				isSelected[i] = true;
+				
 				int winner = -1;
-				int result = match[i][arr[playerB][indexes[playerB]]];
-				if(result == 2) {
-					// 지우가 이긴 경우
-					winner = playerA;
-				}
-				else {
-					// 지우가 진 경우
-					winner = playerB;;
-				}
+				int result = match[i][  info[playerB][indexes[playerB]]  ];
+
+				// playerA가 이긴경우
+				if(result == 2) winner = playerA;
+				// 비겨도 뒤순서가 이기므로 playerB가 이긴 경우
+				else 			winner = playerB;
+				
 				int nextPlayer = 3 - playerB;
 				int first = Math.min(winner, nextPlayer);
 				int second = Math.max(winner, nextPlayer);
+				
+				isSelected[i] = true;
 				scores[winner]++;
 				indexes[playerB]++;
-				if(play(first, second, scores, isSelected, indexes, arr)) return true;
+				// 지우가 다른거 내서 우승했다면 true 반환하고 탈출
+				if(play(first, second, scores, isSelected, indexes, info)) return true;
 				indexes[playerB]--;
 				scores[winner]--;
 				isSelected[i] = false;
@@ -86,29 +88,23 @@ public class Main_16986 {
 		}
 		else {
 			int winner = -1;
-			//System.out.println("pA = "+playerA +", indexs[playerA] = "+indexes[playerA]+", pB = "+playerB+", indexes[playerB] = "+indexes[playerB]);
-			int result = match[arr[playerA][indexes[playerA]]][arr[playerB][indexes[playerB]]];
-			if(result == 2) {
-				// playerA가 이긴경우
-				winner = playerA;
-			}
-			else {
-				// 비겨도 뒤순서가 이기므로 playerB가 이긴 경우
-				winner = playerB;
-			}
+			int result = match[  info[playerA][indexes[playerA]]  ][  info[playerB][indexes[playerB]]  ];
+			// playerA가 이긴경우
+			if(result == 2) 	winner = playerA;
+			// 비겨도 뒤순서가 이기므로 playerB가 이긴 경우
+			else				winner = playerB;
+			
 			scores[winner]++;
 			indexes[playerA]++;
 			indexes[playerB]++;
-			if(play(0, winner, scores, isSelected, indexes, arr)) return true;
+			// 지우가 다른거 내서 우승했다면 true 반환하고 탈출
+			if(play(0, winner, scores, isSelected, indexes, info)) return true;
 			indexes[playerA]--;
 			indexes[playerB]--;
 			scores[winner]--;
 		}
 		
-		
-		
-		
-		
+		// false 반환은 탐색을 계속하라는 것
 		return false;
 	}
 
