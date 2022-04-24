@@ -16,12 +16,14 @@ public class Main_16932 {
 		
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
+		int maxIdx = N*M;
 		
-		parents = new int[N*M];
-		groupCnt = new int[N*M];
-		for(int i = 0; i < N*M; i++) {
+		parents = new int[maxIdx];
+		groupCnt = new int[maxIdx];
+		for(int i = 0; i < maxIdx; i++) {
 			parents[i] = i;
 		}
+		
 		
 		// 1,000,000
 		int[][] arr = new int[N][M];
@@ -36,7 +38,7 @@ public class Main_16932 {
 		boolean[][] visited = new boolean[N][M];
 		for(int r = 0; r < N; r++) {
 			for(int c = 0; c < M; c++) {
-				if(!visited[r][c] && arr[r][c] == 1) {
+				if(arr[r][c] == 1 && !visited[r][c]) {
 					dfsUnion(r, c, visited, arr);
 				}
 			}
