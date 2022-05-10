@@ -31,7 +31,7 @@ public class Main_14600 {
 		StringBuilder sb = new StringBuilder();
 		for(int a = 0; a < N; a++) {
 			for(int b = 0; b < N; b++) {
-				sb.append(map[a][b]).append(" ");
+				sb.append(map[a][b]).append("\t");
 			}
 			sb.append("\n");
 		}
@@ -53,25 +53,25 @@ public class Main_14600 {
 			return;
 		}
 		int half = size / 2;
-		if(r <= targetR && targetR < r+half && c <= targetC && targetC < c+half) {
+		if(0 <= targetR && targetR < half && 0 <= targetC && targetC < half) {
 			divide(r, 		c, 		half, targetR, targetC, value);	
 		}
 		else {
 			divide(r, 		c, 		half, half-1, half-1, curIdx);			
 		}
-		if(r <= targetR && targetR < r+half && c+half <= targetC && targetC < c+size) {
+		if(0 <= targetR && targetR < half && half <= targetC && targetC < size) {
 			divide(r, 		c+half, half, targetR, targetC-half, value);
 		}
 		else {			
 			divide(r, 		c+half, half, half-1, 0		, curIdx);
 		}
-		if(r+half <= targetR && targetR < r+size && c <= targetC && targetC < c+half) {
+		if(half <= targetR && targetR < size && 0 <= targetC && targetC < half) {
 			divide(r+half, 	c, 		half, targetR-half, targetC, value);
 		}
 		else {			
 			divide(r+half, 	c, 		half, 0,	  half-1, curIdx);
 		}
-		if(r+half <= targetR && targetR < r+size && c+half <= targetC && targetC < c+size) {
+		if(half <= targetR && targetR < size && half <= targetC && targetC < size) {
 			divide(r+half, 	c+half, half, targetR-half, targetC-half, value);
 		}
 		else {			
