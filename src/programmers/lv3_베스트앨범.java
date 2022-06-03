@@ -2,24 +2,27 @@ package programmers;
 
 import java.util.*;
 
-class Song implements Comparable<Song>{
-    int id;
-    int play;
-    public Song(int id, int play) {
-        this.id = id;
-        this.play = play;
-    }
-    public String toString() {
-        return "Song [play="+play+", id="+id+"]";
-    }
-    @Override
-    public int compareTo(Song o){
-        if(play == o.play) return id - o.id;
-        return (play - o.play) * -1;
-    }
-}
 
-class Solution {
+class lv3_베스트앨범 {
+	
+	static class Song implements Comparable<Song>{
+	    int id;
+	    int play;
+	    public Song(int id, int play) {
+	        this.id = id;
+	        this.play = play;
+	    }
+	    public String toString() {
+	        return "Song [play="+play+", id="+id+"]";
+	    }
+	    @Override
+	    public int compareTo(Song o){
+	        if(play == o.play) return id - o.id;
+	        return (play - o.play) * -1;
+	    }
+	}
+
+	
     public int[] solution(String[] genres, int[] plays) {
         int[] answer = {};
         
