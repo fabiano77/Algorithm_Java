@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.Stack;
 
-public class Main_23288 {
+public class Main_10799 {
 
 	public static void main(String[] args) throws IOException {
 		System.setIn(new FileInputStream("src/input.txt"));
